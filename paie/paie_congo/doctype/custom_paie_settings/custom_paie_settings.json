@@ -1,0 +1,106 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-10-14 08:36:03.112125",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "anciennete_rate",
+  "conge_days_5_years",
+  "jour_ouvrable",
+  "working_hours_per_day",
+  "background_workers",
+  "column_break_fexnh",
+  "anciennete_en_annee",
+  "multiple_salary_in_period",
+  "employee_checking",
+  "bonus_in_separate_slip",
+  "automatic_seniority"
+ ],
+ "fields": [
+  {
+   "fieldname": "anciennete_rate",
+   "fieldtype": "Float",
+   "label": "Anciennete Rate"
+  },
+  {
+   "fieldname": "conge_days_5_years",
+   "fieldtype": "Float",
+   "label": "Conge Days 5 Years"
+  },
+  {
+   "fieldname": "jour_ouvrable",
+   "fieldtype": "Float",
+   "label": "Jour Ouvrable"
+  },
+  {
+   "fieldname": "background_workers",
+   "fieldtype": "Int",
+   "label": "Background Workers"
+  },
+  {
+   "fieldname": "column_break_fexnh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "anciennete_en_annee",
+   "fieldtype": "Check",
+   "label": "Anciennete en Ann\u00e9e"
+  },
+  {
+   "default": "0",
+   "fieldname": "multiple_salary_in_period",
+   "fieldtype": "Check",
+   "label": "Multiple Salary in Period"
+  },
+  {
+   "default": "0",
+   "fieldname": "employee_checking",
+   "fieldtype": "Check",
+   "label": "Employee Checking"
+  },
+  {
+   "default": "8",
+   "fieldname": "working_hours_per_day",
+   "fieldtype": "Float",
+   "label": "Working Hours per Day"
+  },
+  {
+   "default": "0",
+   "fieldname": "bonus_in_separate_slip",
+   "fieldtype": "Check",
+   "label": "Yearly Bonus in Separate Slip"
+  },
+  {
+   "default": "0",
+   "fieldname": "automatic_seniority",
+   "fieldtype": "Check",
+   "label": "Automatic Seniority"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2023-12-02 10:47:34.321752",
+ "modified_by": "Administrator",
+ "module": "Paie Congo",
+ "name": "Custom Paie Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
