@@ -335,7 +335,6 @@
   "description": null,
   "docstatus": 0,
   "doctype": "Custom Field",
-<<<<<<< HEAD
   "dt": "Payroll Entry",
   "fetch_from": null,
   "fetch_if_empty": 0,
@@ -390,8 +389,6 @@
   "description": null,
   "docstatus": 0,
   "doctype": "Custom Field",
-=======
->>>>>>> 41d9ede (260720240950)
   "dt": "Salary Structure",
   "fetch_from": "salary_type.event_name",
   "fetch_if_empty": 0,
