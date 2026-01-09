@@ -2,6 +2,50 @@
  {
   "docstatus": 0,
   "doctype": "Client Script",
+  "dt": "Item",
+  "enabled": 1,
+  "modified": "2025-10-23 11:19:13.738915",
+  "module": "Paie Congo",
+  "name": "Add button test",
+  "script": "frappe.ui.form.on('Item', {\n    // on refresh event\n    refresh(frm) {\n\n        frm.add_custom_button(__(\"Button Name\"), () => {\n            frappe.msgprint(\"Hello from custom button\")\n        });\n\n    }\n})",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Attendance",
+  "enabled": 1,
+  "modified": "2025-10-23 11:09:30.031039",
+  "module": "Paie Congo",
+  "name": "Increment Series",
+  "script": "frappe.ui.form.on('Attendance', {\r\n    refresh(frm) {\r\n        // Utiliser l'\u00e9v\u00e9nement 'refresh' au lieu de 'insert' pour s'assurer que le code s'ex\u00e9cute correctement\r\n        if (frm.is_new()) { // V\u00e9rifier si le formulaire est en mode cr\u00e9ation\r\n            frm.doc.naming_series = \"\"; // R\u00e9initialiser le naming_series\r\n\r\n            // R\u00e9cup\u00e9rer les valeurs n\u00e9cessaires\r\n            let employee = frm.doc.employee;\r\n            let attendanceDate = frm.doc.attendance_date;\r\n\r\n            // Extraire l'ann\u00e9e, le mois et le jour de la date\r\n            let year = attendanceDate.slice(2, 4); // YY\r\n            let month = attendanceDate.slice(5, 7); // MM\r\n            let day = attendanceDate.slice(8, 10); // DD\r\n\r\n            // Construire le naming_series\r\n            frm.doc.naming_series = `YY-${employee}-${day}${month}${year} 00:00:00`;\r\n\r\n            // Rafra\u00eechir le formulaire pour afficher les modifications\r\n            frm.refresh_field('naming_series');\r\n        }\r\n    }\r\n});",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Attendance",
+  "enabled": 1,
+  "modified": "2025-10-23 11:07:45.063814",
+  "module": "Paie Congo",
+  "name": "Update Attendance Tools",
+  "script": "frappe.listview_settings['Attendance'] = {\r\n    onload: function(listview) {\r\n        if (!listview.page.custom_buttons_added) {\r\n            listview.page.custom_buttons_added = true;\r\n\r\n            // Ajouter un bouton personnalis\u00e9 dans la barre d'outils\r\n            listview.page.add_inner_button(__('Actualiser Pr\u00e9sences'), function() {\r\n                let d = new frappe.ui.Dialog({\r\n                    title: __('Actualiser Pr\u00e9sence'),\r\n                    fields: [\r\n                        {\r\n                            label: __('Actualisation'),\r\n                            fieldname: 'actualisation',\r\n                            fieldtype: 'Select',\r\n                            options: ['Tous le monde', 'Individuel'],\r\n                            default: 'Tous le monde',\r\n                            change: function() {\r\n                                let actualisation = this.get_value();\r\n                                if (actualisation === 'Individuel') {\r\n                                    d.set_df_property('employee', 'hidden', false);\r\n                                } else {\r\n                                    d.set_df_property('employee', 'hidden', true);\r\n                                }\r\n                            }\r\n                        },\r\n                        {\r\n                            label: __('Employee'),\r\n                            fieldname: 'employee',\r\n                            fieldtype: 'Link',\r\n                            options: 'Employee',\r\n                            hidden: true, // Masquer par d\u00e9faut\r\n                            get_query: () => {\r\n                                return {\r\n                                    filters: {\r\n                                        'status': 'Active'\r\n                                    }\r\n                                };\r\n                            }\r\n                        }\r\n                    ],\r\n                    primary_action_label: __('Mettre \u00e0 jour'),\r\n                    primary_action: function(values) {\r\n                        if (values.actualisation === 'Individuel') {\r\n                            if (!values.employee) {\r\n                                frappe.msgprint(__('Veuillez s\u00e9lectionner un employ\u00e9.'));\r\n                                return;\r\n                            }\r\n\r\n                            frappe.call({\r\n                                method: \"fleuve_congo_custom.fleuve_congo_custom.doctype.provision.provision.update_attendance_individuel\",\r\n                                args: {\r\n                                    employee: values.employee,\r\n                                },\r\n                                callback: function(r) {\r\n                                    if (!r.exc) {\r\n                                        frappe.msgprint(__('Actualisation en cours pour l\\'employ\u00e9 s\u00e9lectionn\u00e9.'));\r\n                                        listview.refresh();\r\n                                    }\r\n                                }\r\n                            });\r\n                        } else {\r\n                            frappe.call({\r\n                                method: \"fleuve_congo_custom.fleuve_congo_custom.doctype.provision.provision.update_attendance_all\",\r\n                                callback: function(r) {\r\n                                    if (!r.exc) {\r\n                                        frappe.msgprint(__('Actualisation en cours pour tous les employ\u00e9s.'));\r\n                                        listview.refresh();\r\n                                    }\r\n                                }\r\n                            });\r\n                        }\r\n                        d.hide();\r\n                    }\r\n                });\r\n\r\n                d.show();\r\n            });\r\n        }\r\n    }\r\n};",
+  "view": "List"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Decompte Final",
+  "enabled": 1,
+  "modified": "2025-10-07 16:01:10.220006",
+  "module": "Paie Congo",
+  "name": "Automate Decompte",
+  "script": "frappe.ui.form.on('Decompte Final', {\r\n    refresh(frm) {\r\n        // Code \u00e0 ex\u00e9cuter lors du rafra\u00eechissement du formulaire\r\n        if (frm.doc.automatique) {\r\n            // Si \"automatique\" est coch\u00e9 \u2192 cacher le champ\r\n            frm.set_df_property('custom_ratio_compensation', 'hidden', 1);\r\n            frm.set_df_property('custom_ratio_compensation', 'reqd', 0);\r\n        } else {\r\n            // Sinon \u2192 afficher le champ et le rendre obligatoire\r\n            frm.set_df_property('custom_ratio_compensation', 'hidden', 0);\r\n            frm.set_df_property('custom_ratio_compensation', 'reqd', 1);\r\n        }\r\n        \r\n        if (frm.doc.type_preavis == 'Avec Pr\u00e9avis') {\r\n            // Si \"automatique\" est coch\u00e9 \u2192 cacher le champ\r\n            frm.set_df_property('motif_depart', 'hidden', 0);\r\n        } else {\r\n            // Sinon \u2192 afficher le champ et le rendre obligatoire\r\n            frm.set_df_property('motif_depart', 'hidden', 1);\r\n        }\r\n       \r\n    },\r\n\r\n    automatique(frm) {\r\n        if (frm.doc.automatique) {\r\n            // Si \"automatique\" est coch\u00e9 \u2192 cacher le champ\r\n            frm.set_df_property('custom_ratio_compensation', 'hidden', 1);\r\n            frm.set_df_property('custom_ratio_compensation', 'reqd', 0);\r\n        } else {\r\n            // Sinon \u2192 afficher le champ et le rendre obligatoire\r\n            frm.set_df_property('custom_ratio_compensation', 'hidden', 0);\r\n            frm.set_df_property('custom_ratio_compensation', 'reqd', 1);\r\n        }\r\n    },\r\n    \r\n    type_preavis(frm) {\r\n        if (frm.doc.type_preavis == 'Avec Pr\u00e9avis') {\r\n            // Si \"automatique\" est coch\u00e9 \u2192 cacher le champ\r\n            frm.set_df_property('motif_depart', 'hidden', 0);\r\n        } else {\r\n            // Sinon \u2192 afficher le champ et le rendre obligatoire\r\n            frm.set_df_property('motif_depart', 'hidden', 1);\r\n        }\r\n    }\r\n\r\n    \r\n});\r\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
   "dt": "Employee",
   "enabled": 1,
   "modified": "2025-01-09 14:50:06.063543",
