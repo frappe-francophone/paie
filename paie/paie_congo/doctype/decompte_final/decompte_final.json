@@ -1,0 +1,213 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{employee}-Final-{YY}",
+ "creation": "2025-09-12 11:26:45.595494",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "automatique",
+  "type_preavis",
+  "motif_depart",
+  "sec_section",
+  "employee",
+  "employment_type",
+  "departement",
+  "salaire_de_base",
+  "employee_category_details",
+  "column_break_n9qnd",
+  "employee_category",
+  "starting_date",
+  "date_fin_contrat",
+  "anciennete",
+  "annees_anciennete",
+  "section_break_3dzz3",
+  "preavis",
+  "jour_preste",
+  "conge_sur_preavis",
+  "conge_compensatoire",
+  "column_break_do9ee",
+  "conge_non_pris",
+  "gratification",
+  "amended_from",
+  "section_break_lcvbt",
+  "total_jours"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "automatique",
+   "fieldtype": "Check",
+   "label": "Automatique"
+  },
+  {
+   "fieldname": "type_preavis",
+   "fieldtype": "Select",
+   "label": "Type Preavis",
+   "options": "Sans Pr\u00e9avis\nAvec Pr\u00e9avis"
+  },
+  {
+   "fieldname": "motif_depart",
+   "fieldtype": "Select",
+   "label": "Motif Depart",
+   "options": "Licenciement\nD\u00e9mission"
+  },
+  {
+   "fieldname": "sec_section",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "employee.employment_type",
+   "fieldname": "employment_type",
+   "fieldtype": "Link",
+   "label": "Employment Type",
+   "options": "Employment Type"
+  },
+  {
+   "fetch_from": "employee.department",
+   "fieldname": "departement",
+   "fieldtype": "Data",
+   "label": "Departement"
+  },
+  {
+   "fetch_from": "employee.salaire_de_base",
+   "fieldname": "salaire_de_base",
+   "fieldtype": "Currency",
+   "label": "Salaire de base "
+  },
+  {
+   "fetch_from": "employee.employee_category_details",
+   "fieldname": "employee_category_details",
+   "fieldtype": "Link",
+   "label": "Employee Category Details",
+   "options": "Employee Category Details"
+  },
+  {
+   "fieldname": "column_break_n9qnd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee_category_details.custom_position_groupe",
+   "fieldname": "employee_category",
+   "fieldtype": "Data",
+   "label": "Employee Category"
+  },
+  {
+   "fetch_from": "employee.date_of_joining",
+   "fieldname": "starting_date",
+   "fieldtype": "Date",
+   "label": "Starting Date"
+  },
+  {
+   "fieldname": "date_fin_contrat",
+   "fieldtype": "Date",
+   "label": "Date Fin Contrat",
+   "reqd": 1
+  },
+  {
+   "fieldname": "anciennete",
+   "fieldtype": "Data",
+   "label": "Anciennete",
+   "read_only": 1
+  },
+  {
+   "fieldname": "annees_anciennete",
+   "fieldtype": "Float",
+   "label": "Annees Anciennete",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_3dzz3",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "preavis",
+   "fieldtype": "Float",
+   "label": "Preavis"
+  },
+  {
+   "fieldname": "jour_preste",
+   "fieldtype": "Float",
+   "label": "Jour Preste"
+  },
+  {
+   "fieldname": "conge_sur_preavis",
+   "fieldtype": "Float",
+   "label": "Conge sur preavis"
+  },
+  {
+   "fieldname": "conge_compensatoire",
+   "fieldtype": "Float",
+   "label": "Conge Compensatoire "
+  },
+  {
+   "fieldname": "column_break_do9ee",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "conge_non_pris",
+   "fieldtype": "Float",
+   "label": "Conge Non Pris"
+  },
+  {
+   "fieldname": "gratification",
+   "fieldtype": "Float",
+   "label": "Gratification"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Decompte Final",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "section_break_lcvbt",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "total_jours",
+   "fieldtype": "Float",
+   "label": "Total Jours"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-01-09 15:47:21.892058",
+ "modified_by": "Administrator",
+ "module": "Paie Congo",
+ "name": "Decompte Final",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
